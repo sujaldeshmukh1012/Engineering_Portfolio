@@ -1,0 +1,63 @@
+.NavbarContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1em;
+  padding-left: 3em;
+  padding-right: 3em;
+  z-index: 1;
+}
+.LogoImage {
+  object-fit: contain;
+}
+/* ---NavbarLinksContainer--- */
+.NavbarLinksContainer {
+  position: absolute;
+  right: 30;
+  border-radius: 20px;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  padding: 0.5em;
+}
+.NavbarLinks {
+  margin: 1em;
+}
+
+.NavbarLinks p {
+  color: grey;
+  font-size: 12px;
+}
+.NavbarLinks:hover p {
+  color: #7215f5;
+  transition: 0.3s ease-in-out;
+}
+.NavbarLinks h4 {
+  color: #f0f0f0;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+@media screen and (max-width: 430px) {
+  .NavbarLinks p {
+    color: grey;
+    font-size: 8px;
+  }
+  .NavbarLinks {
+    margin: 0.5em;
+  }
+  .NavbarContainer {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  .NavbarLinks h4 {
+    color: #f0f0f0;
+    font-weight: 400;
+    font-size: 12px;
+  }
+}

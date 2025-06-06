@@ -1,0 +1,264 @@
+.BannerContainer {
+  width: 100vw;
+  height: 100vh;
+  background: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.mainContainer {
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  display: inherit;
+  flex-direction: inherit;
+  align-items: inherit;
+  justify-content: inherit;
+  background-image: url("../../../assets//images/bg_main.png");
+  background-size: cover;
+  background-position: center;
+
+  /* Dark overlay blend */
+  background-color: rgba(0, 0, 0, 0.835); /* semi-transparent black */
+  background-blend-mode: overlay;
+
+  /* Blur applied to backdrop */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); /* for Safari */
+}
+
+.TitleContainer,
+.TitleContainerMask {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.MiddleSection {
+  display: flex;
+  width: 40%;
+  max-width: inherit;
+  justify-content: space-around;
+  text-transform: uppercase;
+  position: relative;
+}
+.TitleH1 {
+  font-size: 4em;
+  width: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: riseFadeIn 1s ease-out forwards;
+}
+@keyframes riseFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.SubTitle {
+  font-size: larger;
+  color: rgb(212, 212, 212);
+}
+/* Mask One */
+
+.TitleContainerMask {
+  position: absolute;
+  mask-image: url("../../../../public/cursor.svg");
+  background-color: #7215f5;
+  mask-repeat: no-repeat;
+  mask-size: 40px;
+  color: #000;
+}
+.BannerImage {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  background: rgb(42, 42, 42);
+  height: auto;
+  z-index: -1;
+  object-fit: contain;
+}
+/* bottom banner css starts */
+.BottomBanner {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: space-between;
+  bottom: 0;
+  width: 95%;
+  z-index: 1;
+  height: 100px;
+}
+.LocationInfo {
+  background-color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.LocationInfoDetails {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+.LocationInfoDetails h4 {
+  color: #fff;
+  font-weight: 200;
+  font-size: 12px;
+}
+.LocationInfoDetails p {
+  color: #fff;
+  font-weight: 200;
+  font-size: 10px;
+}
+.locationImage {
+  background: none;
+  width: 45px;
+  object-fit: contain;
+  margin-left: 5px;
+  height: 45px;
+}
+.EducationInfo {
+  background-color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.eduImage {
+  background: none;
+  width: 40px;
+  object-fit: contain;
+  height: 40px;
+  margin-right: 5px;
+}
+/* Scroll Button CSS */
+.scrollButtonContainer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.scrollButton {
+  padding: 12px;
+  background-color: #00000000;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/*  this mobile responsive design of the mask and normal text looks wierd, 
+maybe you can make a infinite loop sliding banner that will show those words 
+on top of my photo and reduce the height of the overall screen */
+@media screen and (max-width: 1090px) {
+  .TitleH1 {
+    font-size: 5em;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .TitleH1 {
+    font-size: 4em;
+  }
+}
+@media screen and (max-width: 630px) {
+  .TitleH1 {
+    font-size: 3em;
+  }
+}
+@media screen and (max-width: 480px) {
+  .TitleH1 {
+    font-size: 2.5em;
+    width: 100%;
+    text-transform: uppercase;
+    text-align: left;
+  }
+  .mainContainer {
+    width: 90%;
+    margin-bottom: 15em;
+    height: fit-content;
+  }
+  .TitleContainer,
+  .TitleContainerMask {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .MiddleSection {
+    display: flex;
+    width: 100%;
+  }
+
+  .SubTitle {
+    font-size: larger;
+    color: grey;
+    margin-right: 1em;
+    font-size: 15px;
+  }
+  .TitleContainerMask {
+    position: relative;
+    background-color: inherit;
+    mask: unset;
+    color: #fff;
+    margin-top: 1em;
+  }
+}
+
+@media screen and (max-width: 445px) {
+  .TitleH1 {
+    font-size: 2em;
+    text-align: left;
+  }
+}
+@media screen and (max-width: 360px) {
+  .TitleH1 {
+    font-size: 1em;
+    text-align: left;
+  }
+  .SubTitle {
+    font-size: 10px;
+    text-align: left;
+  }
+  .mainContainer {
+    width: 95%;
+    margin-bottom: 25em;
+    height: fit-content;
+  }
+}
+/* BottomBanner CSS Responsiveness */
+@media screen and (max-width: 360px) {
+  .LocationInfoDetails h4 {
+    font-size: 10px;
+  }
+  .LocationInfoDetails p {
+    font-size: 8px;
+  }
+  .locationImage {
+    width: 30px;
+    height: 30px;
+  }
+  .eduImage {
+    width: 25px;
+    height: 25px;
+  }
+}
