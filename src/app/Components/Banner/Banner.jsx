@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import styles from "./Banner.module.css";
 import useMousePosition from "@/app/utils/useMousePosition";
@@ -7,69 +7,140 @@ import { motion } from "framer-motion";
 import headshot from "../../../assets/images/headshot.png";
 import India from "../../../assets/images/india.png";
 import UB from "../../../assets/images/ub.png";
+
+const ArrowLeft01Icon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 48 24"
+    width={40}
+    height={20}
+    color={"#fff"}
+    fill={"none"}
+    {...props}
+  >
+    <path
+      d="M27 6L21 12L27 18"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
+    />
+    <path
+      d="M15 6L9 12L15 18"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
+    />
+  </svg>
+);
+
+const ArrowRight01Icon = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 48 24"
+    width={40}
+    height={20}
+    color={"#fff"}
+    fill={"none"}
+    {...props}
+  >
+    <path
+      d="M9 6L15 12L9 18"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
+    />
+    <path
+      d="M21 6L27 12L21 18"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
+    />
+  </svg>
+);
+
 function Banner() {
-  const { x, y } = useMousePosition();
-  const [Hovered, SetHovered] = useState(false);
-  const size = Hovered ? 200 : 5;
+  const [revealWidth, setRevealWidth] = useState(200);
+  const [isDesktop, setIsDesktop] = useState(true);
+  const isDragging = useRef(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const startDrag = () => (isDragging.current = true);
+  const stopDrag = () => (isDragging.current = false);
+  const onDrag = (e) => {
+    if (!isDragging.current) return;
+    const newWidth = Math.max(0, Math.min(window.innerWidth, e.clientX));
+    setRevealWidth(newWidth);
+  };
 
   return (
-    <div className={styles.BannerContainer}>
-      <div className={styles.mainContainer} back>
-        <div className={styles.TitleContainer}>
-          <h1 className={styles.TitleH1}>INNOVATOR. GRIT.</h1>
-          <div className={styles.MiddleSection}>
-            <h4 className={styles.SubTitle}>SUJAL D. BHAKARE</h4>
-            <h4 className={styles.SubTitle}>COMPUTER ENGINEER</h4>
-          </div>
-          <div className={styles.BottomTitleContainer}>
-            <h1 className={styles.TitleH1}>PROBLEM SOLVER.</h1>
-          </div>
-        </div>
-        <motion.div
-          animate={{
-            WebkitMaskPosition: `${x - size / 2}px ${y - size / 2}px`,
-            WebkitMaskSize: `${size}px`,
-          }}
-          transition={{ type: "tween", ease: "backOut" }}
-          className={styles.TitleContainerMask}
-        >
-          <h1
-            className={styles.TitleH1}
-            onMouseEnter={() => {
-              SetHovered(true);
-            }}
-            onMouseLeave={() => SetHovered(false)}
-          >
-            PASSIONATE. BOLD.
-          </h1>
-          <div
-            onMouseEnter={() => {
-              SetHovered(true);
-            }}
-            onMouseLeave={() => SetHovered(false)}
-            className={styles.MiddleSection}
-          >
-            <h4 className={styles.SubTitle}>LEADER</h4>
-            <h4 className={styles.SubTitle}>STUDENT</h4>
-          </div>
-          <div
-            onMouseEnter={() => {
-              SetHovered(true);
-            }}
-            onMouseLeave={() => SetHovered(false)}
-            className={styles.BottomTitleContainer}
-          >
-            <h1 className={styles.TitleH1}>HUNGRY. FOOLISH.</h1>
-          </div>
-        </motion.div>
+    <div
+      className={styles.BannerContainer}
+      onMouseMove={onDrag}
+      onMouseUp={stopDrag}
+      onMouseLeave={stopDrag}
+    >
+      <div className={styles.SecondBanner}>
+        <p className={styles.SECONDARYTitleP}>I AM</p>
+        <h1 className={styles.SECONDARYTitleH1}>SUJAL BHAKARE</h1>
       </div>
-      {/* <Image
-        src={headshot}
-        width={500}
-        height={500}
-        className={styles.BannerImage}
-        alt="Picture of the author"
-      /> */}
+
+      {isDesktop && (
+        <>
+          <motion.div
+            className={styles.mainContainer}
+            style={{
+              clipPath: `inset(0 ${window.innerWidth - revealWidth}px 0 0)`,
+            }}
+          >
+            <TitleMaskLayer />
+          </motion.div>
+
+          <div
+            className={styles.ZipHandle}
+            onMouseDown={startDrag}
+            style={{ left: `${revealWidth}px` }}
+          >
+            <div className={styles.ZipLine}>
+              <motion.button
+                className={styles.zipindicatopbuttonOpposite}
+                animate={{ x: [0, -10, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: "easeInOut",
+                }}
+              >
+                <ArrowLeft01Icon />
+              </motion.button>
+            </div>
+
+            <div className={styles.ZipLine}>
+              <motion.button
+                className={styles.zipindicatopbutton}
+                animate={{ x: [0, 10, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 2,
+                  ease: "easeInOut",
+                }}
+              >
+                <ArrowRight01Icon />
+              </motion.button>
+            </div>
+          </div>
+        </>
+      )}
+
       <BottomBanner />
       <ScrollButton />
     </div>
@@ -78,7 +149,56 @@ function Banner() {
 
 export default Banner;
 
-//Building intelligent solutions, from code to hardware.
+function TitleMaskLayer() {
+  const { x, y } = useMousePosition();
+  const [Hovered, SetHovered] = useState(false);
+  const size = Hovered ? 300 : 5;
+
+  return (
+    <div className={styles.TitleContainer}>
+      <h1 className={styles.TitleH1}>INNOVATOR. GRIT.</h1>
+      <div className={styles.MiddleSection}>
+        <h4 className={styles.SubTitle}>SUJAL D. BHAKARE</h4>
+        <h4 className={styles.SubTitle}>COMPUTER ENGINEER</h4>
+      </div>
+      <div className={styles.BottomTitleContainer}>
+        <h1 className={styles.TitleH1}>PROBLEM SOLVER.</h1>
+      </div>
+
+      <motion.div
+        animate={{
+          WebkitMaskPosition: `${x - size / 2}px ${y - size / 2}px`,
+          WebkitMaskSize: `${size}px`,
+        }}
+        transition={{ type: "tween", ease: "backOut" }}
+        className={styles.TitleContainerMask}
+      >
+        <h1
+          className={styles.TitleH1}
+          onMouseEnter={() => SetHovered(true)}
+          onMouseLeave={() => SetHovered(false)}
+        >
+          PASSIONATE. BOLD.
+        </h1>
+        <div
+          className={styles.MiddleSection}
+          onMouseEnter={() => SetHovered(true)}
+          onMouseLeave={() => SetHovered(false)}
+        >
+          <h4 className={styles.SubTitle}>LEADER</h4>
+          <h4 className={styles.SubTitle}>STUDENT</h4>
+        </div>
+        <div
+          className={styles.BottomTitleContainer}
+          onMouseEnter={() => SetHovered(true)}
+          onMouseLeave={() => SetHovered(false)}
+        >
+          <h1 className={styles.TitleH1}>HUNGRY. FOOLISH.</h1>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 function BottomBanner() {
   return (
@@ -108,25 +228,17 @@ function BottomBanner() {
     </div>
   );
 }
+
 function ScrollButton() {
   const [isVisible, setIsVisible] = useState(true);
   const handleScroll = () => {
-    window.scrollBy({
-      top: window.innerHeight, // 100vh
-      left: 0,
-      behavior: "smooth",
-    });
+    window.scrollBy({ top: window.innerHeight, left: 0, behavior: "smooth" });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 100) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.scrollY > 100);
     };
-
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
@@ -150,10 +262,10 @@ function ScrollButton() {
       />
     </svg>
   );
+
   return (
     <motion.div
       className={styles.scrollButtonContainer}
-      //   initial={{ opacity: 0, y: 10 }}
       transition={{ duration: 0.5 }}
       onClick={handleScroll}
     >

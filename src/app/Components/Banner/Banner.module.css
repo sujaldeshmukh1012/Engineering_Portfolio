@@ -1,6 +1,6 @@
 .BannerContainer {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   background: inherit;
   display: flex;
   flex-direction: column;
@@ -16,12 +16,12 @@
   flex-direction: inherit;
   align-items: inherit;
   justify-content: inherit;
-  background-image: url("../../../assets//images/bg_main.png");
+  background-image: url("../../../assets//images/main_bg.jpg");
   background-size: cover;
   background-position: center;
-
+  user-select: none;
   /* Dark overlay blend */
-  background-color: rgba(0, 0, 0, 0.835); /* semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.693); /* semi-transparent black */
   background-blend-mode: overlay;
 
   /* Blur applied to backdrop */
@@ -199,11 +199,11 @@ on top of my photo and reduce the height of the overall screen */
     margin-bottom: 15em;
     height: fit-content;
   }
-  .TitleContainer,
+  /* .TitleContainer,
   .TitleContainerMask {
     flex-direction: column;
     justify-content: flex-start;
-  }
+  } */
   .MiddleSection {
     display: flex;
     width: 100%;
@@ -215,13 +215,13 @@ on top of my photo and reduce the height of the overall screen */
     margin-right: 1em;
     font-size: 15px;
   }
-  .TitleContainerMask {
+  /* .TitleContainerMask {
     position: relative;
     background-color: inherit;
     mask: unset;
     color: #fff;
     margin-top: 1em;
-  }
+  } */
 }
 
 @media screen and (max-width: 445px) {
@@ -262,3 +262,93 @@ on top of my photo and reduce the height of the overall screen */
     height: 25px;
   }
 }
+
+.ZipHandle {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 5px;
+  background-color: rgb(255, 255, 255);
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+  cursor: ew-resize;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.2s;
+}
+.ZipHandle:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.ZipLine {
+  width: fit-content;
+  height: 60%;
+}
+.zipindicatopbutton {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  width: fit-content;
+  height: 30px;
+  background: #00000000;
+  border-radius: 50px;
+  border: 1px SOLID WHITE;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding-left: 10px;
+}
+.zipindicatopbuttonOpposite {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: fit-content;
+  height: 30px;
+  background: #00000000;
+  border-radius: 50px;
+  border: 1px SOLID WHITE;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding-left: 10px;
+}
+
+/* =================================== */
+.SecondBanner {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, #060606, #131313);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  user-select: none;
+}
+.SECONDARYTitleH1 {
+  font-size: 6em;
+  width: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: riseFadeIn 1s ease-out forwards;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.SECONDARYTitleP {
+  width: 100%;
+  text-align: center;
+}
+/* ===================================== */
